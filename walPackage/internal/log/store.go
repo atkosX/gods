@@ -1,6 +1,6 @@
-package Log
+package log
 
-import(
+import (
     "bufio"
     "encoding/binary"
     "os"
@@ -30,11 +30,12 @@ func newStore(f *os.File) (*store,error){
         size: size,
     }, nil
 }
+
 func (s *store) Append(b []byte) (n uint64, pos uint64, err error) {
     s.mu.Lock()
     defer s.mu.Unlock()
-    pos=s.size()
-    if err:=binary.Write(s.buf , enc, uint64(len(b))); err != nil {
+    pos = s.size
+    if err := binary.Write(s.buf, enc, uint64(len(b))); err != nil {
         return 0, 0, err
     }
 
@@ -66,7 +67,7 @@ func (s *store) Read(pos uint64) ([]byte,error){
     return b, nil
 }
 
-func (s *store) ReadAt(p []byte,off ibnt64)(int ,error){
+func (s *store) ReadAt(p []byte, off int64) (int, error) {
     s.mu.Lock()
     defer s.mu.Unlock()
     if err := s.buf.Flush(); err != nil {
