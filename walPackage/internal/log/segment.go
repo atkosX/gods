@@ -9,7 +9,7 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-type segment struct {
+type Segment struct {
 	store                  *store
 	index                  *index
 	baseOffset, nextOffset uint64
